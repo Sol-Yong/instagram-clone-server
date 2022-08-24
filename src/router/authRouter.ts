@@ -7,10 +7,10 @@ import { validate } from '../middleware/validator';
 const router = express.Router();
 
 const validateCredential = [
-  body('email')
-    .isEmail()
-    .normalizeEmail()
-    .withMessage('이메일 형식이 올바르지 않습니다.'),
+  body('userId')
+    .trim()
+    .notEmpty()
+    .withMessage('유효하지 않은 닉네임 및 이메일 입니다.'),
   body('password')
     .trim()
     .isLength({ min: 8 })
@@ -32,5 +32,7 @@ const validateSignup = [
 ];
 
 router.post('/signup', validateSignup, authController.signup);
+
+router.post('/login', validateCredential, authController.login);
 
 export default router;

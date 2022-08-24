@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { useVirtualId } from '../database/database';
 
-interface IUser {
+export interface IUser {
   email: string;
   name: string;
   username: string;
