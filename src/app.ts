@@ -2,6 +2,8 @@ import express, { NextFunction, Request, Response } from 'express';
 import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
+import { config } from './config';
+import { connectDB } from './database/database';
 
 const app = express();
 
@@ -19,6 +21,9 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(500);
 });
 
-app.listen(8080, () => {
-  console.log('Started!');
-});
+connectDB()
+  .then(() => {
+    console.log('Connect MongoDB✅✅');
+    app.listen(config.host.port);
+  })
+  .catch(console.error);
